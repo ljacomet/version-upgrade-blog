@@ -1,0 +1,3 @@
+== Example of Gradle strict version
+
+As shown on https://scans.gradle.com/s/253r3dh5gztwg/console-log?anchor=40[the build scan], the strict version allows to downgrade the Google Guava version.
