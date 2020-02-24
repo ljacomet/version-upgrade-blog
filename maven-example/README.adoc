@@ -1,0 +1,47 @@
+== Example of ordering problem with Maven resolution
+
+The pom.xml of this sample project contains two profiles, that lead to two different versions of Google Guava to be used in the build.
+The only difference between the profiles is the dependency declaration order.
+
+.Output of running `mvn -Plower dependency:tree -Dincludes=com.google.guava:guava`
+
+```
+OpenJDK 64-Bit Server VM warning: ignoring option MaxPermSize=128m; support was removed in 8.0
+[INFO] Scanning for projects...
+[INFO]
+[INFO] ---------------------< blog.version:maven-example >---------------------
+[INFO] Building maven-example 1.0-SNAPSHOT
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO]
+[INFO] --- maven-dependency-plugin:2.8:tree (default-cli) @ maven-example ---
+[INFO] blog.version:maven-example:jar:1.0-SNAPSHOT
+[INFO] \- com.spotify:folsom:jar:1.5.0:compile
+[INFO]    \- com.google.guava:guava:jar:24.1-jre:compile
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 1.115 s
+[INFO] Finished at: 2020-02-24T16:31:42-05:00
+[INFO] ------------------------------------------------------------------------
+```
+
+.Output of running `mvn -Phigher dependency:tree -Dincludes=com.google.guava:guava`
+```
+OpenJDK 64-Bit Server VM warning: ignoring option MaxPermSize=128m; support was removed in 8.0
+[INFO] Scanning for projects...
+[INFO]
+[INFO] ---------------------< blog.version:maven-example >---------------------
+[INFO] Building maven-example 1.0-SNAPSHOT
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO]
+[INFO] --- maven-dependency-plugin:2.8:tree (default-cli) @ maven-example ---
+[INFO] blog.version:maven-example:jar:1.0-SNAPSHOT
+[INFO] \- org.optaplanner:optaplanner-core:jar:7.24.0.Final:compile
+[INFO]    \- com.google.guava:guava:jar:25.0-jre:compile
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 1.343 s
+[INFO] Finished at: 2020-02-24T16:33:50-05:00
+[INFO] ------------------------------------------------------------------------
+```
